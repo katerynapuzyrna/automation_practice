@@ -81,6 +81,10 @@ public class FirstTest {
         By searchFieldLocator=By.id("search_query_top");
         By firstTipLocator=By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]");
 
+        public LandingPage(WebDriver driver) {
+
+        }
+
         void searchFor(String query) {
             $(searchFieldLocator).clear();
             $(searchFieldLocator).sendKeys(query);
