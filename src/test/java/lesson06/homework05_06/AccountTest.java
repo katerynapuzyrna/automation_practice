@@ -1,4 +1,4 @@
-package lesson06;
+package lesson06.homework05_06;
 
 import org.junit.*;
 import org.openqa.selenium.By;

@@ -4,7 +4,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,9 +21,9 @@ public class FirstTest {
 
     @BeforeClass
     public static void setUp() {
-        driver= new ChromeDriver();
+        driver = new ChromeDriver();
 
-        //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+//		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 
         driver.get("http://automationpractice.com/index.php");
@@ -37,53 +36,29 @@ public class FirstTest {
     }
 
     @Test
-    public void verifyFirstTip(){
-        String query1="Dress";
-        String query2="T-shirt";
-        LandingPage landingPage = new LandingPage(driver);
+    public void verifyFirstTip() {
+        String query1 = "Dress";
+        String query2 = "T-shirt";
+        LandingPage landingPage = new LandingPage();
 
         landingPage.searchFor(query1);
-
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions
-                        .textToBePresentInElement(landingPage.firstTip, query1));
+                        .textToBePresentInElementLocated(landingPage.firstTipLocator, query1));
 
-
+        landingPage.searchFor(query2);
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions
-                        .textToBePresentInElementLocated(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]"), "Dress"));
-
-        (new WebDriverWait(driver, 10)).ignoring(StaleElementReferenceException.class)
-                .until(webDriver ->webDriver.findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]")).getText().contains("Dress"));
-        /*Assert.assertThat(driver.
-                        findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]")).getText(),
-                containsString("Dress"));*/
-
-        //driver.findElement(By.id("search_query_top")).click();
-        driver.findElement(By.id("search_query_top")).clear();
-        driver.findElement(By.id("search_query_top")).sendKeys("T-shirt");
-        /*Assert.assertThat(driver.
-                        findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]")).getText(),
-                containsString("T-shirt"));*/
-        (new WebDriverWait(driver, 10)).ignoring(StaleElementReferenceException.class)
-                .until(webDriver ->webDriver.findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]")).getText().contains("T-shirt"));
-
-        (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions
-                        .textToBePresentInElement(searchRes, "T-shirt"));
-
+                        .textToBePresentInElementLocated(landingPage.firstTipLocator, query2));
     }
+
     class LandingPage {
 
-        //Don't do so
-        //WebElement searchField=driver.findElement(By.id("search_query_top"));
+        // Don't do so
+        //WebElement searchField = driver.findElement(By.id("search_query_top"));
 
-        By searchFieldLocator=By.id("search_query_top");
-        By firstTipLocator=By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]");
-
-        public LandingPage(WebDriver driver) {
-
-        }
+        By searchFieldLocator = By.id("search_query_top");
+        By firstTipLocator = By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]");
 
         void searchFor(String query) {
             $(searchFieldLocator).clear();
@@ -94,7 +69,4 @@ public class FirstTest {
             return driver.findElement(locator);
         }
     }
-
 }
-
-
