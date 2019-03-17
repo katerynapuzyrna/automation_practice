@@ -6,38 +6,44 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+public abstract class BaseTest {
+
     protected static WebDriver driver;
 
     @Rule
     public TestWatcher testWatcher = new TestWatcher() {
         @Override
         protected void succeeded(Description description) {
-            System.out.println(String.format("Test '%s' - PASSED", description.getMethodName()));
+            System.out.println(String
+                    .format("Test '%s' - PASSED", description.getMethodName()));
             super.succeeded(description);
         }
 
         @Override
         protected void failed(Throwable e, Description description) {
-            System.out.println(String.format("Test '%s' - FAILED due to: %s", description.getMethodName(), e.getMessage()));
+            System.out.println(String
+                    .format("Test '%s' - FAILED due to: %s",
+                            description.getMethodName(),
+                            e.getMessage()));
             super.failed(e, description);
         }
 
         @Override
         protected void skipped(AssumptionViolatedException e, Description description) {
-            System.out.println(String.format("Test '%s' - SKIPPED", description.getMethodName()));
+            System.out.println(String
+                    .format("Test '%s' - SKIPPED", description.getMethodName()));
             super.skipped(e, description);
         }
 
         @Override
         protected void starting(Description description) {
-            System.out.println(String.format("Test '%s' - is starting...", description.getMethodName()));
+            System.out.println(String
+                    .format("Test '%s' - is starting...", description.getMethodName()));
             super.starting(description);
         }
     };
@@ -46,7 +52,6 @@ public class BaseTest {
     public static void setUp() {
         driver = new ChromeDriver();
 
-//		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 
         driver.get("http://automationpractice.com/index.php");
@@ -57,5 +62,4 @@ public class BaseTest {
     public static void tearDown() {
         driver.quit();
     }
-
 }

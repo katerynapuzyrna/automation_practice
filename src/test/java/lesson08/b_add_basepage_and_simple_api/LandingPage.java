@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-class LandingPage extends  BasePage{
+import static lesson08.b_add_basepage_and_simple_api.Conditions.clickable;
 
-    private WebDriver driver;
+public class LandingPage extends BasePage{
 
     By searchFieldLocator = By.id("search_query_top");
     By firstTipLocator = By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]");
@@ -17,7 +17,8 @@ class LandingPage extends  BasePage{
     }
 
     void searchFor(String query) {
-        waitFor(ExpectedConditions::elementToBeClickable).click();
+        //$(searchFieldLocator, ExpectedConditions::elementToBeClickable).click();
+        $(searchFieldLocator, clickable).click();
         $(searchFieldLocator).clear();
         $(searchFieldLocator).sendKeys(query);
     }

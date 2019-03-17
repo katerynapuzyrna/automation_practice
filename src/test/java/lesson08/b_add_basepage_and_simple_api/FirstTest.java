@@ -2,8 +2,9 @@ package lesson08.b_add_basepage_and_simple_api;
 
 import org.junit.Test;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 
 public class FirstTest extends BaseTest {
 
@@ -12,21 +13,12 @@ public class FirstTest extends BaseTest {
         String query1 = "Dress";
         String query2 = "T-shirt";
         LandingPage landingPage = new LandingPage(driver);
+        landingPage.visit();
 
         landingPage.searchFor(query1);
-        assertThat(ExpectedConditions
-                .textToBePresentInElementLocated(landingPage.firstTipLocator, query1));
+        assertThat(textToBePresentInElementLocated(landingPage.firstTipLocator, query1));
 
-        assertThat(ExpectedConditions
-                .textToBePresentInElementLocated(landingPage.firstTipLocator, query2));
+        landingPage.searchFor(query2);
+        assertThat(textToBePresentInElementLocated(landingPage.firstTipLocator, query2 + "dsds"));
     }
-   void assertThat(ExpectedCondition<Boolean> condition, long timeout){
-       (new WebDriverWait(driver, timeout))
-               .until(condition);
-   }
-
-    void assertThat(ExpectedCondition<Boolean> condition){
-        assertThat(condition, 10);
-    }
-
 }
