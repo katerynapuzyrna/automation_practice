@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.function.Function;
 
-import static lesson08.c_add_assertall.Conditions.VISIBLE;
+import static lesson09.a_add_simple_logging.Conditions.VISIBLE;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public abstract class SimpleAPI {

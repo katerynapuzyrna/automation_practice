@@ -3,7 +3,7 @@ package lesson09.a_add_simple_logging;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static lesson08.c_add_assertall.Conditions.CLICKABLE;
+import static lesson09.a_add_simple_logging.Conditions.CLICKABLE;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementWithText;
 
 public class LandingPage extends BasePage {
