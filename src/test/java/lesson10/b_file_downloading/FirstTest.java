@@ -1,8 +1,8 @@
-package lesson09.a_add_simple_logging;
+package lesson10.b_file_downloading;
 
+import lesson10.a_add_wd_event_listener.LandingPage;
 import org.junit.Assert;
 import org.junit.Test;
-import pages.LandingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 

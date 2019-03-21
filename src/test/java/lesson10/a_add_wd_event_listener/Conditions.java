@@ -1,4 +1,4 @@
-package lesson09.a_add_simple_logging;
+package lesson10.a_add_wd_event_listener;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

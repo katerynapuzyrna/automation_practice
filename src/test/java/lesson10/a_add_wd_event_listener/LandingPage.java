@@ -1,9 +1,9 @@
-package lesson09.a_add_simple_logging;
+package lesson10.a_add_wd_event_listener;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static lesson09.a_add_simple_logging.Conditions.CLICKABLE;
+import static utils.Conditions.CLICKABLE;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementWithText;
 
 public class LandingPage extends BasePage {

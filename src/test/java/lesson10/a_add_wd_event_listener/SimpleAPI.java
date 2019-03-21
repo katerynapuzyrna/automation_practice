@@ -1,4 +1,4 @@
-package lesson09.a_add_simple_logging;
+package lesson10.a_add_wd_event_listener;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.function.Function;
 
-import static lesson09.a_add_simple_logging.Conditions.VISIBLE;
+import static lesson10.a_add_wd_event_listener.Conditions.VISIBLE;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public abstract class SimpleAPI {
