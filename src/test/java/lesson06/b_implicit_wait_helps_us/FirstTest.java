@@ -21,10 +21,10 @@ public class FirstTest {
 
     @BeforeClass
     public static void setUp() {
-        driver= new ChromeDriver();
+        driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 
         driver.get("http://automationpractice.com/index.php");
         driver.manage().window().maximize();
@@ -36,14 +36,12 @@ public class FirstTest {
     }
 
     @Test
-    public void verifyFirstTip(){
+    public void verifyFirstTip() {
         driver.findElement(By.id("search_query_top")).clear();
         driver.findElement(By.id("search_query_top")).sendKeys("Dress");
 
-        Assert.assertThat(driver.
-                findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]")).getText(),
+        Assert.assertThat(driver
+                        .findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]")).getText(),
                 containsString("Dress"));
-
     }
 }
-

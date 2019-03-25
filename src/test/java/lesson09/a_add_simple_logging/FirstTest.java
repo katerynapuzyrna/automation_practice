@@ -2,7 +2,6 @@ package lesson09.a_add_simple_logging;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pages.LandingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -21,8 +20,8 @@ public class FirstTest extends BaseTest {
 		landingPage.searchFor(query2, oldTipText);
 		// Then
 		final String newTipText = landingPage.getFirstTipText();
-		assertAll(() -> Assert.assertThat(newTipText, containsString(query2 + "0")),
+		assertAll(() -> Assert.assertThat(newTipText, containsString(query2)),
 				() -> Assert.assertThat(newTipText, containsString(query2)),
-				() -> Assert.assertThat(newTipText, containsString(query2 + "1")));
+				() -> Assert.assertThat(newTipText, containsString(query2)));
 	}
 }

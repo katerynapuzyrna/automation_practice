@@ -1,28 +1,53 @@
 package lesson10.b_file_downloading;
 
-import lesson10.a_add_wd_event_listener.LandingPage;
+import de.redsix.pdfcompare.PdfComparator;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.LoginPage;
+import utils.FileDownloader;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import java.io.File;
+
+import static org.hamcrest.CoreMatchers.is;
 
 public class FirstTest extends BaseTest {
 
 	@Test
-	public void verifyFirstTip() {
+	public void verifyDownloadMyOrder() throws Exception {
 		// Given
-		final String query1 = "Dress";
-		final String query2 = "T-shirt";
-		final LandingPage landingPage = new LandingPage(driver);
-		landingPage.visit();
-		landingPage.searchFor(query1);
-		final String oldTipText = landingPage.getFirstTipText();
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.visit();
+		loginPage.logIn("kateryna.puzyrna@gmail.com", "12345");
+		$("//*[@id=\"center_column\"]/div/div[1]/ul/li[1]/a/span").click();
+		waitFor(ExpectedConditions.titleContains("Order history"));
 		// When
-		landingPage.searchFor(query2, oldTipText);
+		FileDownloader fileDownloader = new FileDownloader(driver);
+		fileDownloader.setURI($("//*[@id=\"order-list\"]/tbody/tr/td[6]/a").getAttribute("href"));
+		File actualFile = fileDownloader.downloadFile();
+		int requestStatus = fileDownloader.getLastDownloadHTTPStatus();
 		// Then
-		final String newTipText = landingPage.getFirstTipText();
-		assertAll(() -> Assert.assertThat(newTipText, containsString(query2 + "0")),
-				() -> Assert.assertThat(newTipText, containsString(query2)),
-				() -> Assert.assertThat(newTipText, containsString(query2 + "1")));
+		assertAll(() -> Assert.assertThat("Check status.", requestStatus, is(200)),
+				() -> Assert.assertThat(new PdfComparator(new File("IN090495.pdf"), actualFile)
+						.compare().writeTo("diffOutputPass"), is(true)));
+	}
+
+	@Test
+	public void verifyDownloadMyOrderNegative() throws Exception {
+		// Given
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.visit();
+		loginPage.logIn("kateryna.puzyrna@gmail.com", "12345");
+		$("//*[@id=\"center_column\"]/div/div[1]/ul/li[1]/a/span").click();
+		waitFor(ExpectedConditions.titleContains("Order history"));
+		// When
+		FileDownloader fileDownloader = new FileDownloader(driver);
+		fileDownloader.setURI($("//*[@id=\"order-list\"]/tbody/tr/td[6]/a").getAttribute("href"));
+		File actualFile = fileDownloader.downloadFile();
+		int requestStatus = fileDownloader.getLastDownloadHTTPStatus();
+		// Then
+		assertAll(() -> Assert.assertThat("Check status.", requestStatus, is(200)),
+				() -> Assert.assertThat(new PdfComparator(new File("IN090495.pdf"), actualFile)
+						.compare().writeTo("diffOutputPass"), is(false)));
 	}
 }

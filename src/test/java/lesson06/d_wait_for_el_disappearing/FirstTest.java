@@ -22,7 +22,7 @@ public class FirstTest {
         driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 
         driver.get("http://automationpractice.com/index.php");
         driver.manage().window().maximize();

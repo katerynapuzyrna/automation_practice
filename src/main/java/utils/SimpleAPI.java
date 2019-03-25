@@ -9,19 +9,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.function.Function;
 
-import static utils.Conditions.VISIBLE;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public abstract class SimpleAPI {
 
-	abstract WebDriver getDriver();
+	protected abstract WebDriver getDriver();
 
 	protected void open(String url) {
 		getDriver().get(url);
 	}
 
 	protected WebElement $(By locator) {
-		return $(locator, VISIBLE);
+		return $(locator, Conditions.VISIBLE);
 	}
 
 	protected WebElement $(String xPath) {
@@ -44,11 +43,11 @@ public abstract class SimpleAPI {
 		return $$(By.xpath(xPath));
 	}
 
-	public <T> T waitFor(ExpectedCondition<T> condition, long timeout) {
+	protected <T> T waitFor(ExpectedCondition<T> condition, long timeout) {
 		return (new WebDriverWait(getDriver(), timeout)).until(condition);
 	}
 
-	public <T> T waitFor(ExpectedCondition<T> condition) {
+	protected <T> T waitFor(ExpectedCondition<T> condition) {
 		return waitFor(condition, 10l);
 	}
 }

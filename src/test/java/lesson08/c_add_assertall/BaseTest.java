@@ -1,4 +1,9 @@
-package lesson08.a_add_basetest;
+package lesson08.c_add_assertall;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.junit.AfterClass;
 import org.junit.AssumptionViolatedException;
@@ -8,12 +13,16 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
-import java.util.concurrent.TimeUnit;
-
-public abstract class BaseTest {
+public abstract class BaseTest extends SimpleAPI {
 
     protected static WebDriver driver;
+
+    @Override
+    WebDriver getDriver() {
+        return driver;
+    }
 
     @Rule
     public TestWatcher testWatcher = new TestWatcher() {
@@ -51,15 +60,42 @@ public abstract class BaseTest {
     @BeforeClass
     public static void setUp() {
         driver = new ChromeDriver();
-
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-
-        driver.get("http://automationpractice.com/index.php");
         driver.manage().window().maximize();
     }
 
     @AfterClass
     public static void tearDown() {
         driver.quit();
+    }
+
+    void assertThat(ExpectedCondition<Boolean> condition) {
+        assertThat(condition, 10l);
+    }
+
+    void assertThat(ExpectedCondition<Boolean> condition, long timeout) {
+        waitFor(condition, timeout);
+    }
+
+    void assertAll(Assertion... assertions) {
+        List<Throwable> errors = new ArrayList<>();
+        for (Assertion assertion : assertions) {
+            try {
+                assertion.assertSmth();
+            } catch (Throwable throwable) {
+                errors.add(throwable);
+            }
+        }
+        if (!errors.isEmpty()) {
+            throw new AssertionError(errors
+                    .stream()
+                    .map(assertionError -> "\n Failed" + assertionError.getMessage())
+                    .collect(Collectors.toList()).toString());
+        }
+    }
+
+    @FunctionalInterface
+    public interface Assertion {
+        void assertSmth();
     }
 }

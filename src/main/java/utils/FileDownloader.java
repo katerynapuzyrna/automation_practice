@@ -1,4 +1,4 @@
-package lesson10.a_file_downloading;
+package utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
@@ -17,8 +17,6 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import utils.RequestMethod;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

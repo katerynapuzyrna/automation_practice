@@ -15,22 +15,22 @@ public class LandingPage extends BasePage {
 		super(driver);
 	}
 
-	void visit() {
+	public void visit() {
 		open("http://automationpractice.com/index.php");
 	}
 
-	void searchFor(String query) {
+	public void searchFor(String query) {
 		$(searchFieldLocator, CLICKABLE).click();
 		$(searchFieldLocator).clear();
 		$(searchFieldLocator).sendKeys(query);
 	}
 
-	void searchFor(String query, String oldTip) {
+	public void searchFor(String query, String oldTip) {
 		searchFor(query);
 		waitFor(invisibilityOfElementWithText(firstTipLocator, oldTip), 5l);
 	}
 
-	String getFirstTipText() {
+	public String getFirstTipText() {
 		return $(firstTipLocator).getText();
 	}
 }

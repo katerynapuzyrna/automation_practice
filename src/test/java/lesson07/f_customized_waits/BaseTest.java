@@ -1,4 +1,4 @@
-package lesson08.a_add_basetest;
+package lesson07.f_customized_waits;
 
 import org.junit.AfterClass;
 import org.junit.AssumptionViolatedException;

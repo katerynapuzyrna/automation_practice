@@ -18,7 +18,7 @@ public class SearchTest {
     public static void setUp() {
         driver = new ChromeDriver();
 
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 
         driver.get("http://automationpractice.com/index.php");
         driver.manage().window().maximize();

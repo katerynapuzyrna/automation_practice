@@ -1,13 +1,13 @@
 package utils;
 
-        import org.apache.logging.log4j.LogManager;
-        import org.apache.logging.log4j.Logger;
-        import org.openqa.selenium.By;
-        import org.openqa.selenium.WebDriver;
-        import org.openqa.selenium.WebElement;
-        import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 
-        import java.util.Arrays;
+import java.util.Arrays;
 
 public class EventHandler extends AbstractWebDriverEventListener{
     private static final Logger LOG = LogManager.getLogger(EventHandler.class);

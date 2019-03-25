@@ -13,7 +13,8 @@ public abstract class BasePage extends SimpleAPI {
 		PageFactory.initElements(driver, this);
 	}
 
-	public WebDriver getDriver() {
+	@Override
+	protected WebDriver getDriver() {
 		return driver;
 	}
 }
