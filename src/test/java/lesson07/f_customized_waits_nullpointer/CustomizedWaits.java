@@ -8,13 +8,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CustomizedWaits {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
-    public static void waiter(By someXpathLocator){
+    /*public static void waiter(By someXpathLocator){
         WebDriverWait wait=new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.presenceOfElementLocated(someXpathLocator));
-    }
-    static void listNthElementHasText(By locator, int elNo, String expText) {
+    }*/
+    void listNthElementHasText(By locator, int elNo, String expText) {
         try {
 
             (new WebDriverWait(driver, 10))
@@ -29,5 +29,9 @@ public class CustomizedWaits {
         {
             System.out.println("Index out of bounds: "+driver.findElements(locator).size());
         }
+    }
+
+    public CustomizedWaits(WebDriver driver) {
+        this.driver = driver;
     }
 }

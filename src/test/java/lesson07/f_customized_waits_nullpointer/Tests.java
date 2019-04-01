@@ -10,7 +10,8 @@ public class Tests extends BaseTest {
     @Test
     public void myCreditSlips(){
         logIn("kateryna.puzyrna@gmail.com","12345");
-        CustomizedWaits.listNthElementHasText( By.xpath("//*[@id='center_column']/div/div[1]/ul/li"),1,"MY CREDIT SLIPS");
+        CustomizedWaits customizedWaits = new CustomizedWaits(driver);
+        customizedWaits.listNthElementHasText( By.xpath("//*[@id='center_column']/div/div[1]/ul/li"),1,"MY CREDIT SLIPS");
 
     }
 
