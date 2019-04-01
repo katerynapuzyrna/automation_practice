@@ -1,4 +1,4 @@
-package lesson07.f_customized_waits_nullpointer;
+package lesson07.g_page_factory;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,13 +8,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CustomizedWaits {
 
-    protected WebDriver driver;
+    protected static WebDriver driver;
 
-    /*public static void waiter(By someXpathLocator){
+    public static void waiter(By someXpathLocator){
         WebDriverWait wait=new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.presenceOfElementLocated(someXpathLocator));
-    }*/
-    void listNthElementHasText(By locator, int elNo, String expText) {
+    }
+    static void listNthElementHasText(By locator, int elNo, String expText) {
         try {
 
             (new WebDriverWait(driver, 10))
@@ -24,14 +24,17 @@ public class CustomizedWaits {
                     {
                         return driver.findElements(locator).get(elNo).getText().equals(expText)&&driver.findElements(locator).size()>=elNo;
                     });
+
+                    //By locator, int el, String exp)->
+                           // {return driver.findElements(locator).get(el).getText().equals(exp);});
+
+
+                            //ExpectedConditions.
+                            //textToBePresentInElement(driver.findElements(locator).get(elNo), expText));
         }
         catch (IndexOutOfBoundsException ex)
         {
             System.out.println("Index out of bounds: "+driver.findElements(locator).size());
         }
-    }
-
-    public CustomizedWaits(WebDriver driver) {
-        this.driver = driver;
     }
 }

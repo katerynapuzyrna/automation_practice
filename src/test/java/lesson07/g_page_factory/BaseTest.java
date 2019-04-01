@@ -1,4 +1,4 @@
-package lesson07.f_customized_waits_nullpointer;
+package lesson07.g_page_factory;
 
 import org.junit.AfterClass;
 import org.junit.AssumptionViolatedException;

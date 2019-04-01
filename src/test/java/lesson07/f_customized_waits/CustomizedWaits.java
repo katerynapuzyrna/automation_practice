@@ -3,42 +3,50 @@ package lesson07.f_customized_waits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public class CustomizedWaits {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
-    public static void waiter(By someXpathLocator){
-        WebDriverWait wait=new WebDriverWait(driver,10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(someXpathLocator));
+    public CustomizedWaits(WebDriver driver) {
+        this.driver = driver;
     }
-    static void listNthElementHasText(By locator, int elNo, String expText) {
-        try {
+    public int timeOut=100;
 
-            (new WebDriverWait(driver, 10))
-                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(locator,2));
-            (new WebDriverWait(driver, 10))
-                    .until((ExpectedCondition<Boolean>) (notnull) ->
-                    {
-                        return driver.findElements(locator).get(elNo).getText().equals(expText)&&driver.findElements(locator).size()>=elNo;
-                    });
-
-                    //By locator, int el, String exp)->
-                           // {return driver.findElements(locator).get(el).getText().equals(exp);});
-
-
-                            //ExpectedConditions.
-                            //textToBePresentInElement(driver.findElements(locator).get(elNo), expText));
+    public void listNthElementHasText(By locator, int elNo, String expText) {
+        try
+        {
+            (new WebDriverWait(driver, timeOut))
+                    .until(ExpectedConditions.and(ExpectedConditions.numberOfElementsToBeMoreThan(locator,elNo-1),
+                            (ExpectedCondition<Boolean>) (driver) -> driver.findElements(locator).get(elNo-1).getText().equals(expText)));
         }
         catch (IndexOutOfBoundsException ex)
         {
-            System.out.println("Index out of bounds: "+driver.findElements(locator).size());
+            System.out.println("Index out of bounds: only "+driver.findElements(locator).size()+" elements are present in the list");
         }
+    }
+
+    public void pageIsLoaded(String expUrl, String expTitle) {
+        (new WebDriverWait(driver, timeOut))
+                .until(ExpectedConditions.and(ExpectedConditions.titleIs(expTitle),ExpectedConditions.urlToBe(expUrl)));
+    }
+
+    public void stalenessOfElement(WebElement elToBeDisappeared) {
+        (new WebDriverWait(driver, timeOut))
+                .until(ExpectedConditions.stalenessOf(elToBeDisappeared));
+    }
+
+    public void textInElement(By element, String text) {
+        (new WebDriverWait(driver,timeOut))
+                .until(ExpectedConditions.textToBePresentInElementLocated(element, text));
+    }
+
+    public void pageOpen(String xPath) {
+        (new WebDriverWait(driver, timeOut))
+               .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xPath))))
+                .click();
     }
 }
