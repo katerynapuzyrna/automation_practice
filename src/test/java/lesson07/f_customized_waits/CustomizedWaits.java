@@ -23,11 +23,11 @@ public class CustomizedWaits {
 
             (new WebDriverWait(driver, 10))
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(locator,2));
-          /*  (new WebDriverWait(driver, 10))
+            (new WebDriverWait(driver, 10))
                     .until((ExpectedCondition<Boolean>) (notnull) ->
                     {
                         return driver.findElements(locator).get(elNo).getText().equals(expText)&&driver.findElements(locator).size()>=elNo;
-                    });*/
+                    });
 
                     //By locator, int el, String exp)->
                            // {return driver.findElements(locator).get(el).getText().equals(exp);});
