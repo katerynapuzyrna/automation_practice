@@ -15,6 +15,10 @@ public abstract class BaseTest {
 
     protected static WebDriver driver;
 
+    LoginPage loginPage = new LoginPage(driver);
+
+    AccountPage accountPage = new AccountPage(driver);
+
     @Rule
     public TestWatcher testWatcher = new TestWatcher() {
         @Override
@@ -51,9 +55,7 @@ public abstract class BaseTest {
     @BeforeClass
     public static void setUp() {
         driver = new ChromeDriver();
-
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-
         driver.get("http://automationpractice.com/index.php");
         driver.manage().window().maximize();
     }
