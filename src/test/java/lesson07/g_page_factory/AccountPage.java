@@ -16,10 +16,12 @@ public class AccountPage {
     @FindBy(xpath = "//*[@id='header']//a[@class='logout']")
     WebElement logOut;
 
-    public void signOut()
+    @FindBy(xpath = "//*[@id=\"center_column\"]/h1")
+    WebElement myAccountHeading;
+
+    public LoginPage signOut()
     {
         logOut.click();
-       // LoginPage loginPage = new LoginPage(driver);
-       // return loginPage;
+       return new LoginPage(driver);
     }
 }

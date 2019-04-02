@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
 
 protected WebDriver driver;
+    @FindBy(xpath = "//*[@id='header']//a[@class='login']")
+    WebElement signInButton;
 
     @FindBy(id = "email")
     WebElement email;
@@ -21,23 +23,25 @@ protected WebDriver driver;
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
-    public void enterUsername(String username) {
+    public LoginPage enterUsername(String username) {
         email.sendKeys(username);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public LoginPage enterPassword(String password) {
         pwd.sendKeys(password);
+        return this;
     }
 
-    public void clickSignInBtn() {
+    public LoginPage clickSignInBtn() {
         signInConfirmButton.click();
+        return this;
     }
 
-    public void logIn(String username, String password) {
+    public AccountPage logIn(String username, String password) {
         enterUsername(username);
         enterPassword(password);
         clickSignInBtn();
-        //AccountPage accountPage = new AccountPage(driver);
-        //return accountPage;
+        return new AccountPage(driver);
     }
 }
